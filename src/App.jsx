@@ -14,6 +14,7 @@ function App() {
   const [musicReady, setMusicReady] = useState(false)
   const runnerRef = useRef(null)
   const audioRef = useRef(null)
+  const hearts = Array.from({ length: 10 }, (_, index) => index)
 
   const getBounds = () => {
     const padding = 12
@@ -69,8 +70,8 @@ function App() {
       <div className="scene">
         <header className="hero">
           <p className="eyebrow">A little Valentine note</p>
-          <h1>Hello,</h1>
-          <p className="subhead">A small question from a warm heart.</p>
+          <h1>Hey you,</h1>
+          <p className="subhead">A sweet question from someone who adores you.</p>
         </header>
 
         {!isOpen && (
@@ -96,36 +97,49 @@ function App() {
         )}
 
         {isOpen && (
-          <section className="card letter">
-            <p className="letter-body">
-              Will you be my Valentine?
-            </p>
-            <p className="letter-body">
-              No pressure at all, just a simple ask and a big smile. If your
-              answer is yes, I'd be happy. If it's no, I'll still be grateful.
-            </p>
-            <p className="letter-sign">— From Somone Who Really Likes You</p>
-            <div className="button-row">
-              <button
-                className={`btn ghost runner${isDodging ? ' is-dodging' : ''}`}
-                style={isDodging ? { left: dodge.x, top: dodge.y } : undefined}
-                ref={runnerRef}
-                onPointerEnter={startDodging}
-                onPointerDown={startDodging}
-                onClick={() => setAnswer('no')}
-              >
-                No
-              </button>
-              <button className="btn primary" onClick={() => setAnswer('yes')}>
-                Yes!
-              </button>
-            </div>
-            <p className="hint">The &quot;No&quot; button is super shy.</p>
-          </section>
+          <>
+            {answer === null && (
+              <div className="hearts" aria-hidden="true">
+                {hearts.map((index) => (
+                  <span className="heart" key={`open-heart-${index}`} />
+                ))}
+              </div>
+            )}
+            <section className="card letter">
+              <p className="letter-body">Will you be my Valentine?</p>
+              <p className="letter-body">
+                I already like you a lot, and I feel like you might feel it too.
+                If your answer is yes, I'll be over the moon. If it's not, I'll
+                still be grateful for you.
+              </p>
+              <p className="letter-sign">— From someone who really likes you</p>
+              <div className="button-row">
+                <button
+                  className={`btn ghost runner${isDodging ? ' is-dodging' : ''}`}
+                  style={isDodging ? { left: dodge.x, top: dodge.y } : undefined}
+                  ref={runnerRef}
+                  onPointerEnter={startDodging}
+                  onPointerDown={startDodging}
+                  onClick={() => setAnswer('no')}
+                >
+                  No
+                </button>
+                <button className="btn primary" onClick={() => setAnswer('yes')}>
+                  Yes!
+                </button>
+              </div>
+              <p className="hint">The &quot;No&quot; button is super shy.</p>
+            </section>
+          </>
         )}
 
         {answer === 'yes' && (
           <>
+            <div className="hearts" aria-hidden="true">
+              {hearts.map((index) => (
+                <span className="heart" key={`yes-heart-${index}`} />
+              ))}
+            </div>
             <div className="confetti" aria-hidden="true">
               <span className="piece" />
               <span className="piece" />
@@ -149,21 +163,15 @@ function App() {
                   loading="lazy"
                 />
               </div>
-              <p className="gift-note">Thank you for making my day.</p>
+              <p className="gift-note">You already do, and now you made it perfect.</p>
             </section>
           </>
         )}
         {answer === 'no' && (
-          <div className="response no">
-            All good. Thanks for being kind.
-          </div>
+          <div className="response no">All good. Thanks for being kind.</div>
         )}
       </div>
-      <audio
-        ref={audioRef}
-        src={audioSrc}
-        preload="auto"
-      />
+      <audio ref={audioRef} src={audioSrc} preload="auto" />
     </div>
   )
 }
