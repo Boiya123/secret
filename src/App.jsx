@@ -108,9 +108,9 @@ function App() {
             <section className="card letter">
               <p className="letter-body">Will you be my Valentine?</p>
               <p className="letter-body">
-                I already like you a lot, and I feel like you might feel it too.
-                If your answer is yes, I'll be over the moon. If it's not, I'll
-                still be grateful for you.
+                I keep thinking about how some questions deserve to be asked even 
+                when the answer feels close already. so here it is, quiet and honest. 
+                Will you be my valentine???
               </p>
               <p className="letter-sign">— From someone who really likes you</p>
               <div className="button-row">
