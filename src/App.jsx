@@ -112,7 +112,7 @@ function App() {
                 when the answer feels close already. so here it is, quiet and honest. 
                 Will you be my valentine???
               </p>
-              <p className="letter-sign">— From someone who really likes you</p>
+              <p className="letter-sign">— From someone who adores you hehe</p>
               <div className="button-row">
                 <button
                   className={`btn ghost runner${isDodging ? ' is-dodging' : ''}`}
