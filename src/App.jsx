@@ -1,63 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
+import liliesBouquet from './assets/lilies-bouquet.jpg'
 import './App.css'
-
-const clamp = (value, min, max) => Math.min(Math.max(value, min), max)
-const randomBetween = (min, max) =>
-  Math.floor(Math.random() * (max - min + 1)) + min
 
 function App() {
   const audioSrc = `${import.meta.env.BASE_URL}soft-spot.mp3`
   const [isOpen, setIsOpen] = useState(false)
-  const [answer, setAnswer] = useState(null)
-  const [dodge, setDodge] = useState({ x: 0, y: 0 })
-  const [isDodging, setIsDodging] = useState(false)
   const [musicReady, setMusicReady] = useState(false)
-  const runnerRef = useRef(null)
   const audioRef = useRef(null)
-  const hearts = Array.from({ length: 10 }, (_, index) => index)
-
-  const getBounds = () => {
-    const padding = 12
-    const rect = runnerRef.current?.getBoundingClientRect()
-    const buttonWidth = rect?.width ?? 120
-    const buttonHeight = rect?.height ?? 52
-    const maxX = Math.max(window.innerWidth - buttonWidth - padding, padding)
-    const maxY = Math.max(window.innerHeight - buttonHeight - padding, padding)
-    return { padding, maxX, maxY }
-  }
-
-  const dartRandomly = () => {
-    const { padding, maxX, maxY } = getBounds()
-    setDodge({
-      x: clamp(randomBetween(padding, maxX), padding, maxX),
-      y: clamp(randomBetween(padding, maxY), padding, maxY),
-    })
-  }
-
-  const startDodging = () => {
-    if (!isDodging) {
-      setIsDodging(true)
-    }
-    dartRandomly()
-  }
-
-  useEffect(() => {
-    if (!isDodging) return
-
-    const intervalId = window.setInterval(() => {
-      dartRandomly()
-    }, 220)
-
-    const handleResize = () => {
-      dartRandomly()
-    }
-
-    window.addEventListener('resize', handleResize)
-    return () => {
-      window.removeEventListener('resize', handleResize)
-      window.clearInterval(intervalId)
-    }
-  }, [isDodging])
 
   useEffect(() => {
     const audio = audioRef.current
@@ -67,11 +16,12 @@ function App() {
 
   return (
     <div className="page">
+      <div className="background-gif" aria-hidden="true" />
       <div className="scene">
         <header className="hero">
-          <p className="eyebrow">A little Valentine note</p>
-          <h1>Hey you,</h1>
-          <p className="subhead">A sweet question from someone who adores you.</p>
+          <p className="eyebrow">A small missive</p>
+          <h1>Happy Valentine&apos;s, Pauline!</h1>
+          <p className="subhead">A small letter of affection.</p>
         </header>
 
         {!isOpen && (
@@ -97,80 +47,41 @@ function App() {
         )}
 
         {isOpen && (
-          <>
-            {answer === null && (
-              <div className="hearts" aria-hidden="true">
-                {hearts.map((index) => (
-                  <span className="heart" key={`open-heart-${index}`} />
-                ))}
-              </div>
-            )}
-            <section className="card letter">
-              <p className="letter-body">Will you be my Valentine?</p>
-              <p className="letter-body">
-                I keep thinking about how some questions deserve to be asked even 
-                when the answer feels close already. so here it is, quiet and honest. 
-                Will you be my valentine???
-              </p>
-              <p className="letter-sign">— From someone who adores you hehe</p>
-              <div className="button-row">
-                <button
-                  className={`btn ghost runner${isDodging ? ' is-dodging' : ''}`}
-                  style={isDodging ? { left: dodge.x, top: dodge.y } : undefined}
-                  ref={runnerRef}
-                  onPointerEnter={startDodging}
-                  onPointerDown={startDodging}
-                  onClick={() => setAnswer('no')}
-                >
-                  No
-                </button>
-                <button className="btn primary" onClick={() => setAnswer('yes')}>
-                  Yes!
-                </button>
-              </div>
-              <p className="hint">The &quot;No&quot; button is super shy.</p>
-            </section>
-          </>
-        )}
-
-        {answer === 'yes' && (
-          <>
-            <div className="hearts" aria-hidden="true">
-              {hearts.map((index) => (
-                <span className="heart" key={`yes-heart-${index}`} />
-              ))}
-            </div>
-            <div className="confetti" aria-hidden="true">
-              <span className="piece" />
-              <span className="piece" />
-              <span className="piece" />
-              <span className="piece" />
-              <span className="piece" />
-              <span className="piece" />
-              <span className="piece" />
-              <span className="piece" />
-              <span className="piece" />
-              <span className="piece" />
-              <span className="piece" />
-              <span className="piece" />
-            </div>
-            <section className="card gift">
-              <p className="gift-title">A little gift for you</p>
-              <div className="gift-wrap">
+          <section className="card letter">
+            <div className="blossom-overlay" aria-hidden="true" />
+            <div className="letter-ornament" aria-hidden="true" />
+            <p className="letter-body">
+              Here is my small way of still expressing my feelings for you, they ain&apos;t
+              the real ones but I still gotta make some effort. Goodluck ulet sa studies,
+              and hope ur doing good as always.
+            </p>
+            <p className="letter-body">
+              Best wishes to you
+            </p>
+            <p className="letter-sign">— Dion</p>
+            <div className="bouquet">
+              <div className="bouquet-wrap">
+                <div className="bouquet-sparkles" aria-hidden="true">
+                  <span className="sparkle" />
+                  <span className="sparkle" />
+                  <span className="sparkle" />
+                  <span className="sparkle" />
+                </div>
                 <img
-                  src="https://media.tenor.com/AsEFyg_BUMsAAAAe/steph-curry.png"
-                  alt="Gift surprise"
+                  className="bouquet-image"
+                  src={liliesBouquet}
+                  alt="Bouquet of lilies"
                   loading="lazy"
                 />
               </div>
-              <p className="gift-note">You already do, and now you made it perfect.</p>
-            </section>
-          </>
-        )}
-        {answer === 'no' && (
-          <div className="response no">All good. Thanks for being kind.</div>
+              <p className="bouquet-caption">A bouquet of lilies, for you.</p>
+            </div>
+          </section>
         )}
       </div>
+      <footer className="footer" aria-hidden="true">
+        <div className="footer-gif" />
+      </footer>
       <audio ref={audioRef} src={audioSrc} preload="auto" />
     </div>
   )

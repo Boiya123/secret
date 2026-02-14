@@ -1,8 +1,8 @@
 :root {
-  font-family: 'Trebuchet MS', 'Gill Sans', 'Segoe UI', 'Lucida Sans', sans-serif;
+  font-family: 'Palatino Linotype', 'Book Antiqua', 'Garamond', serif;
   line-height: 1.5;
   font-weight: 400;
-  color: #3a1f2b;
+  color: #3f1f2e;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -17,7 +17,7 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  background: radial-gradient(circle at top, #fff7ee 0%, #f3dce9 45%, #f6edd1 100%);
+  background: radial-gradient(circle at top, #fdeef5 0%, #f7d6e5 45%, #efbdd3 100%);
 }
 
 a {
